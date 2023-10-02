@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+public class BOJ_w1_25206 {
+	public static void main(String[] args) throws IOException{
+		BufferedReader bfr = new BufferedReader(new InputStreamReader(System.in));
+		//BufferedReader를 사용해 입력받음
+		
+		String str[] = new String[20];  //20개의 과목 정보 저장
+		double totalSum = 0;  //전공평점의 합 저장
+		double scoreSum = 0;  //학점 총합 저장
+		String gradeList[] = {"A+", "A0", "B+", "B0", "C+", "C0", "D+", "D0", "F", "P"};
+		//등급에 대한 리스트 저장
+		double gradeScore[] = {4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0, 0.0, 0.0};
+		//각 등급에 대한 과목평점 저장
+		
+		for (int i = 0; i < 20; i++) {  //20개의 과목 정보 입력받고
+			str[i] = bfr.readLine();
+			StringTokenizer st = new StringTokenizer(str[i], " ");
+			String subject = st.nextToken();
+			double score = Double.parseDouble(st.nextToken());
+			String grade = st.nextToken();
+			//StringTokenizer를 사용해 각 과목의 과목명, 학점, 등급 분리
+			
+			for (int j = 0; j < 10; j++) {
+				if (grade.equals(gradeList[j])) {
+					totalSum += score * gradeScore[j];
+					//과목의 등급에 따라 적절한 과목평점 곱하여 전공평점의 합 'totalSum' 계산
+					if (j != 9) {
+						scoreSum += score;
+					}
+				}
+			}
+		}
+		
+		double average = totalSum / scoreSum;
+		//전공평점의 평균 계산하여 average에 저장
+		System.out.printf("%.6f\n", average);
+		//소수점 6자리까지 출력
+		
+		bfr.close();  //BufferedReader 닫기(메모리 누수 방지)
+	}
+    
+}
